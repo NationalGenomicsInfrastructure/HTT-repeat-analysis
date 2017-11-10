@@ -6,7 +6,7 @@ This is a program developed for analysis of tri-nucleotide repeats in the HTT ge
 
 Check out Wiki to learn how to execute the program - Wiki
 
-Copyright (C) 2015 Adam Ameur
+Copyright (C) 2017 Adam Ameur
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
