@@ -21,10 +21,28 @@
 targets <- list()
 targets$HTT <- list()
 targets$HTT$repeatElements <- c("CAG","CCG") # Repeats to be analyzed (CAG:main repeat, CCG: flanking repeat)
-targets$HTT$start <- "AGTCCTTCCAGCAG" # 14bp overlapping repeat start (CAGCAG)
-targets$HTT$end <- "CCGCCGCCTCCTCA" # 14bp overlapping repeat end (CCGCCG)
-targets$HTT$basesBefore <- c(2641,905) ## Expected read length(s) before HTT repeat start site
-targets$HTT$basesAfter <- c(114) ## Expected read length(s) before HTT repeat end site
+targets$HTT$start <- "CCCTCAAGTCCTTC" # 14bp overlapping repeat start (CAGCAG)
+targets$HTT$end <- "CCTCCTCAGCTTCC" # 14bp overlapping repeat end (CCGCCG)
+targets$HTT$basesBefore <- c(2635,899) ## Expected read length(s) before HTT repeat start site
+targets$HTT$basesAfter <- c(108) ## Expected read length(s) before HTT repeat end site
+targets$FMR1 <- list()
+targets$FMR1$repeatElements <- c("CGG","AGG")
+targets$FMR1$start <- "GGGGCGTGCGGCAGCG" # 14bp overlapping repeat start (CGGCGG)
+targets$FMR1$end <- "CTGGGCCTCGAGCG" # 14bp overlapping repeat end (CGGCGG)
+targets$FMR1$basesBefore <- c(430) ## Expected read length(s) before FMR1 repeat start site
+targets$FMR1$basesAfter <- c(489) ## Expected read length(s) after FMR1 repeat end site
+targets$ALS <- list()
+targets$ALS$repeatElements <- c("GGCCCC")
+targets$ALS$start <- "CCCGACCACGCCCC" # 14bp overlapping repeat start (CCCCGG)
+targets$ALS$end <- "TAGCGCGCGACTCC" # 14bp overlapping repeat end (CCCCGG)
+targets$ALS$basesBefore <- c(239,529) ## Expected read length(s) before ALS repeat start site
+targets$ALS$basesAfter <- c(456) ## Expected read length(s) after ALS repeat end site
+targets$SCA10 <- list()
+targets$SCA10$repeatElements <- c("ATTCT")
+targets$SCA10$start <- "GACTACTAGAATGG" # 14bp overlapping repeat start (ATTCT)
+targets$SCA10$end <- "TTTTGAGATGAAGT" # 14bp overlapping repeat end (ATTCT)
+targets$SCA10$basesBefore <- c(477) ## Expected read length(s) before ALS repeat start site
+targets$SCA10$basesAfter <- c(444) ## Expected read length(s) after ALS repeat end site
 
 
 ## #############################################################################################################
@@ -45,26 +63,15 @@ targets$HTT$basesAfter <- c(114) ## Expected read length(s) before HTT repeat en
 ##
 ## ##############################################################################################################
 
-extractRepeatsHTTsamples <- function(){
+
+
+extractRepeatsAllSamples <- function(targetList=c("HTT","FMR1","ALS","SCA10"), rerun=FALSE){
   require(seqinr)
 
-  analyzeRepeatsInSample(fastaFile="CCS_reads/genscript_rep1_CCS.fasta", outdir="analysis_results", sampleName="genscript_rep1",targetList=c("HTT"))
-  analyzeRepeatsInSample(fastaFile="CCS_reads/genscript_rep2_CCS.fasta", outdir="analysis_results", sampleName="genscript_rep2",targetList=c("HTT"))
-  analyzeRepeatsInSample(fastaFile="CCS_reads/genscript_rep3_CCS.fasta", outdir="analysis_results", sampleName="genscript_rep3",targetList=c("HTT"))
-  analyzeRepeatsInSample(fastaFile="CCS_reads/genscript_rep4_CCS.fasta", outdir="analysis_results", sampleName="genscript_rep4",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample2_CCS.fasta", outdir="analysis_results", sampleName="Sample2",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample2_CCS.fasta", outdir="analysis_results", sampleName="Sample2",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample2_CCS.fasta", outdir="analysis_results", sampleName="Sample2",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample3_CCS.fasta", outdir="analysis_results", sampleName="Sample3",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample4_CCS.fasta", outdir="analysis_results", sampleName="Sample4",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample5_CCS.fasta", outdir="analysis_results", sampleName="Sample5",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample6_CCS.fasta", outdir="analysis_results", sampleName="Sample6",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample7_CCS.fasta", outdir="analysis_results", sampleName="Sample7",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample8_CCS.fasta", outdir="analysis_results", sampleName="Sample8",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample9_CCS.fasta", outdir="analysis_results", sampleName="Sample9",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample10_CCS.fasta", outdir="analysis_results", sampleName="Sample10",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample11_CCS.fasta", outdir="analysis_results", sampleName="Sample11",targetList=c("HTT"))
-  #analyzeRepeatsInSample(fastaFile="CCS_reads/Sample12_CCS.fasta", outdir="analysis_results", sampleName="Sample12",targetList=c("HTT"))
+  analyzeRepeatsInSample(fastaFile="CCS_reads/genscript_rep1_CCS.fasta", sampleName="genscript_rep1", outdir="analysis_results", targetList=targetList, rerun=rerun)
+  analyzeRepeatsInSample(fastaFile="CCS_reads/genscript_rep2_CCS.fasta", sampleName="genscript_rep2", outdir="analysis_results", targetList=targetList, rerun=rerun)
+  analyzeRepeatsInSample(fastaFile="CCS_reads/genscript_rep3_CCS.fasta", sampleName="genscript_rep3", outdir="analysis_results", targetList=targetList, rerun=rerun)
+  analyzeRepeatsInSample(fastaFile="CCS_reads/genscript_rep4_CCS.fasta", sampleName="genscript_rep4", outdir="analysis_results", targetList=targetList, rerun=rerun)
 
 }
 
@@ -86,69 +93,71 @@ analyzeRepeatsInSampleAndTarget <- function(reads, target, outfile, allowIndelIn
 
     ## Trim a read and remove all bases not between 'targetStart' and 'targetEnd'.
     ## Make sure repeat sequence is not occurring in flanked sequences!
-    trimRead <- function(read, targetStart, targetEnd, repeatElement=NA, maxRepeatsInFlanks=5){
+    trimRead <- function(read, targetStart, targetEnd){
 
+        trimmedRead <- NA
         repeatSequence <- NA
         longestMatchingSeq <- ""
         seqBefore <- ""
         seqAfter <- ""
 
-        if(!is.na(repeatElement)){
-            repeatSequence <- paste(rep(repeatElement,maxRepeatsInFlanks+1),collapse="")
-        }
-
         if(length(grep(targetStart, read)) == 1){
+
             tmpRes <- strsplit(read,targetStart)[[1]]
             beginningOfRead <- tmpRes[1]
+
             tmpRead <- tmpRes[2]
 
             if(length(grep(targetEnd, tmpRead)) == 1){
                 tmpRes <- strsplit(tmpRead,targetEnd)[[1]]
+
                 trimmedRead <- tmpRes[1]
                 endOfRead <- tmpRes[2]
-                if( (length(grep(repeatSequence, beginningOfRead)) == 0) && (length(grep(repeatSequence, endOfRead)) == 0)){
-                    trimmedRead <- paste(targetStart, trimmedRead, targetEnd, sep="")
-                    if(nchar(trimmedRead) > nchar(longestMatchingSeq)){
-                        longestMatchingSeq <- trimmedRead
-                        seqBefore <- beginningOfRead
-                        seqAfter <- endOfRead
-                    }
-                }
             }
         }
 
-        return(list("trimmedRead"=longestMatchingSeq,"seqBefore"=seqBefore,"seqAfter"=seqAfter))
+        if(!is.na(trimmedRead)){
+           return(list("trimmedRead"=trimmedRead,"seqBefore"=beginningOfRead,"seqAfter"=endOfRead))
+        }
+        else{
+           return(NULL)
+        }
     }
 
 
     ## Check if a read has correct length before/after the repeat recognition sites
     checkSizeOfFlanks <- function(observedLenBefore, observedLenAfter, targetLengthsBefore, targetLengthsAfter, maxDist, revComp=FALSE){
 
-      sizeBeforeOk <- FALSE
-      sizeAfterOk <- FALSE
+        sizeBeforeOk <- FALSE
+        sizeAfterOk <- FALSE
 
-      if(revComp == TRUE){
-        tmp <- observedLenBefore
-        observedLenBefore <- observedLenAfter
-        observedLenAfter <- tmp
-
-      }
-
-      ##print(maxDist)
-      ##print(observedLenBefore)
-
-      for(len in targetLengthsBefore){
-        if( (findInterval(observedLenBefore,c(len-(maxDist*len),len+(maxDist*len))) == 1) ){
-          sizeBeforeOk <- TRUE
+        if(is.na(observedLenBefore) || is.na(observedLenAfter)){
+            return(FALSE)
         }
-      }
-      for(len in targetLengthsAfter){
-        if( (findInterval(observedLenAfter,c(len-(maxDist*len),len+(maxDist*len))) == 1) ){
-          sizeAfterOk <- TRUE
-        }
-      }
 
-      return((sizeBeforeOk && sizeAfterOk))
+        if(revComp == TRUE){
+            tmp <- observedLenBefore
+            observedLenBefore <- observedLenAfter
+            observedLenAfter <- tmp
+
+        }
+
+        #cat("maxDist:",maxDist,"\n")
+        #cat("before - o:",observedLenBefore," e:",targetLengthsBefore,"\n")
+        #cat("after - o:",observedLenAfter," e:",targetLengthsAfter,"\n")
+
+        for(len in targetLengthsBefore){
+            if( (findInterval(observedLenBefore,c(len-(maxDist*len),len+(maxDist*len))) == 1) ){
+                sizeBeforeOk <- TRUE
+            }
+        }
+        for(len in targetLengthsAfter){
+            if( (findInterval(observedLenAfter,c(len-(maxDist*len),len+(maxDist*len))) == 1) ){
+                sizeAfterOk <- TRUE
+            }
+        }
+
+        return((sizeBeforeOk && sizeAfterOk))
 
     }
 
@@ -201,6 +210,7 @@ analyzeRepeatsInSampleAndTarget <- function(reads, target, outfile, allowIndelIn
         matchStartRC <- getMatchingSequenceInRead(read, targetStartsRC)
         matchEndRC <- getMatchingSequenceInRead(read, targetEndsRC)
 
+
         if(!is.na(matchStart)){
             startsFound <- startsFound+1
         }
@@ -216,48 +226,52 @@ analyzeRepeatsInSampleAndTarget <- function(reads, target, outfile, allowIndelIn
 
         if( !is.na(matchStart) && !is.na(matchEnd) ){
 
-            res <- trimRead(read,matchStart,matchEnd,targetRepeatElements[1])
-            trimmedRead <- res[["trimmedRead"]]
-            seqBefore <- res[["seqBefore"]]
-            seqAfter <- res[["seqAfter"]]
+            res <- trimRead(read,matchStart,matchEnd)
 
-            if(nchar(trimmedRead)>0){
+            if(!is.null(res)){
+                trimmedRead <- res[["trimmedRead"]]
+                seqBefore <- res[["seqBefore"]]
+                seqAfter <- res[["seqAfter"]]
+
+                ##cat("\ntrimmedRead:",trimmedRead,"\n")
 
                 flankingBasesOk <- checkSizeOfFlanks(nchar(seqBefore), nchar(seqAfter), targets[[target]]$basesBefore, targets[[target]]$basesAfter, maxD, revComp=FALSE)
 
                 if(flankingBasesOk){
                     targetsFound <- targetsFound + 1
-                    ##cat(targetsFound," F - ", matchStart," ",matchEnd,"\r",sep="")
+                    #cat(targetsFound," F - ", matchStart," ",matchEnd,"\r",sep="")
                     trimmedSequence[[readName]] <- trimmedRead
                     cat(">",target,"|",paste(targetRepeatElements,collapse=","),"|fwd|b",nchar(seqBefore),"|a",nchar(seqAfter),"|",readName,"\n",sep="", file=outfile, append=TRUE)
                     cat(trimmedSequence[[readName]],"\n",sep="",file=outfile, append=TRUE)
                 }
+
                 ##else{
                 ##    cat("Filtered:",trimmedRead,"-",readName,"\n")
                 ##}
             }
         }
+
         if( !is.na(matchStartRC) && !is.na(matchEndRC) ){
 
-            res <- trimRead(read,matchEndRC,matchStartRC,revComp(targetRepeatElements[1]))
-            trimmedRead <- res[["trimmedRead"]]
-            seqBefore <- res[["seqBefore"]]
-            seqAfter <- res[["seqAfter"]]
+            res <- trimRead(read,matchEndRC,matchStartRC)
 
-            if(nchar(trimmedRead)>0){
+            if(!is.null(res)){
+                trimmedRead <- res[["trimmedRead"]]
+                seqBefore <- res[["seqBefore"]]
+                seqAfter <- res[["seqAfter"]]
 
                 flankingBasesOk <- checkSizeOfFlanks(nchar(seqBefore), nchar(seqAfter), targets[[target]]$basesBefore, targets[[target]]$basesAfter, maxD, revComp=TRUE)
 
                 if(flankingBasesOk){
                     targetsFound <- targetsFound + 1
-                    ##cat(targetsFound," R - ",matchStartRC," ",matchEndRC,"\r",sep="")
+                    #cat(targetsFound," R - ",matchStartRC," ",matchEndRC,"\r",sep="")
                     trimmedSequence[[readName]] <- trimmedRead
                     targetRepeatElementsRC <- sapply(targetRepeatElements, revComp)
                     cat(">",target,"|",paste(targetRepeatElementsRC,collapse=","),"|rev|b",nchar(seqBefore),"|a",nchar(seqAfter),"|",readName,"\n",sep="", file=outfile, append=TRUE)
                     cat(trimmedSequence[[readName]],"\n",sep="",file=outfile, append=TRUE)
                 }
                 ##else{
-                ##   cat("FilteredREV:",trimmedRead,"-",readName,"\n")
+                ##    cat("FilteredREV:",trimmedRead,"-",readName,"\n")
                 ##}
             }
         }
@@ -267,7 +281,7 @@ analyzeRepeatsInSampleAndTarget <- function(reads, target, outfile, allowIndelIn
 
 
 
-analyzeRepeatsInSample <- function(fastaFile="coco_coriell/095082_A01_NA03620_CCS.fasta", sampleName="NA03620", outdir="results", targetList = c("HTT"), allowIndelInRecognitionSites=TRUE, rerun=FALSE){
+analyzeRepeatsInSample <- function(fastaFile, sampleName, outdir="results", targetList = c("HTT"), allowIndelInRecognitionSites=TRUE, rerun=FALSE){
 
     cat("Analyzing sample: ",sampleName,"\n",sep="")
 
@@ -276,7 +290,7 @@ analyzeRepeatsInSample <- function(fastaFile="coco_coriell/095082_A01_NA03620_CC
     ## Create on-target fasta files (if they don't already exist)
     for(target in targetList){
 
-        onTargetFastaFile <- paste(outdir,"/",sampleName,"_ontarget_uncorrected.fasta",sep="")
+        onTargetFastaFile <- paste(outdir,"/",sampleName,"_",target,"_ontarget_uncorrected.fasta",sep="")
 
         if( !file.exists(onTargetFastaFile) || (rerun==TRUE)){
             require(seqinr)
@@ -295,23 +309,23 @@ analyzeRepeatsInSample <- function(fastaFile="coco_coriell/095082_A01_NA03620_CC
 
         results$target <- list()
 
-        onTargetFastaFile <- paste(outdir,"/",sampleName,"_ontarget_uncorrected.fasta",sep="")
+        onTargetFastaFile <- paste(outdir,"/",sampleName,"_",target,"_ontarget_uncorrected.fasta",sep="")
 
         if(!file.exists(onTargetFastaFile)){
             file.create(onTargetFastaFile)
         }
 
-        repeatFileUncorrected <- paste(outdir,"/",sampleName,"_ontarget_uncorrected_repeats.fasta",sep="")
+        repeatFileUncorrected <- paste(outdir,"/",sampleName,"_",target,"_ontarget_uncorrected_repeats.fasta",sep="")
         if(file.exists(repeatFileUncorrected)){
             file.remove(repeatFileUncorrected)
         }
 
-        onTargetFastaFileCorrected <- paste(outdir,"/",sampleName,"_ontarget_corrected.fasta",sep="")
+        onTargetFastaFileCorrected <- paste(outdir,"/",sampleName,"_",target,"_ontarget_corrected.fasta",sep="")
         if(file.exists(onTargetFastaFileCorrected)){
             file.remove(onTargetFastaFileCorrected)
         }
 
-        repeatFileCorrected <- paste(outdir,"/",sampleName,"_ontarget_corrected_repeats.fasta",sep="")
+        repeatFileCorrected <- paste(outdir,"/",sampleName,"_",target,"_ontarget_corrected_repeats.fasta",sep="")
         if(file.exists(repeatFileCorrected)){
             file.remove(repeatFileCorrected)
         }
@@ -541,7 +555,7 @@ revComp <- function(seq){
 
 
 ## Computes the longest repeat stretch in a DNA sequence, with most 'maxGapBases' are interrupting the repeat
-computeNrRepeatsInSeq <- function(seq, repeatElement="1", maxGapBases=3, minRepsAtStartAndEnd=2){
+computeNrRepeatsInSeq <- function(seq, repeatElement="1", maxGapBases=3, minRepsAtStartAndEnd=2, sampleType="HTT"){
 
 
     stretchStartingAtPos <- function(baseVec, pos, baseToSearchFor, maxGapBases){
@@ -568,40 +582,46 @@ computeNrRepeatsInSeq <- function(seq, repeatElement="1", maxGapBases=3, minReps
 
     seqvec <- strsplit(seq,"")[[1]]
 
-    longestStretch <- array(NA,0)
+    if(!(sampleType=="HTT")){
+        return(length(which(seqvec == repeatElement)))
+    }
+    else{ # Special solution for HTT samples, because of additional CAG outside of repeat
+        longestStretch <- array(NA,0)
 
-    startRepeat <- paste(rep(repeatElement,minRepsAtStartAndEnd),collapse="")
+        startRepeat <- paste(rep(repeatElement,minRepsAtStartAndEnd),collapse="")
 
-    for(i in 1:length(seqvec)){
-        if(seqvec[i] == repeatElement){
-            tmpvec <- stretchStartingAtPos(seqvec, i, repeatElement, maxGapBases)
+        for(i in 1:length(seqvec)){
+            if(seqvec[i] == repeatElement){
+                tmpvec <- stretchStartingAtPos(seqvec, i, repeatElement, maxGapBases)
 
-            tmpstr <- paste(tmpvec,collapse="")
+                tmpstr <- paste(tmpvec,collapse="")
 
-            ## make sure string starts and ends with 'startRepeat'
-            basesToRemoveStart <- strsplit(tmpstr,startRepeat)[[1]][1]
-            tmpstr <- sub(basesToRemoveStart,"",tmpstr)
+                ## make sure string starts and ends with 'startRepeat'
+                basesToRemoveStart <- strsplit(tmpstr,startRepeat)[[1]][1]
+                tmpstr <- sub(basesToRemoveStart,"",tmpstr)
 
-            tmpstrRev <- paste(rev(strsplit(tmpstr,"")[[1]]),collapse="")
-            basesToRemoveEnd <- strsplit(tmpstrRev,startRepeat)[[1]][1]
-            tmpstrRev <- sub(basesToRemoveEnd,"",tmpstrRev)
+                tmpstrRev <- paste(rev(strsplit(tmpstr,"")[[1]]),collapse="")
+                basesToRemoveEnd <- strsplit(tmpstrRev,startRepeat)[[1]][1]
+                tmpstrRev <- sub(basesToRemoveEnd,"",tmpstrRev)
 
-            tmpvec <- rev(strsplit(tmpstrRev,"")[[1]])
+                tmpvec <- rev(strsplit(tmpstrRev,"")[[1]])
 
-            if(length(tmpvec) > length(longestStretch)){
-                longestStretch <- tmpvec
+                if(length(tmpvec) > length(longestStretch)){
+                    longestStretch <- tmpvec
+                }
             }
         }
+
+        nrRepeats <- length(which(longestStretch == repeatElement))
+
+        return(nrRepeats)
+
     }
-
-    nrRepeats <- length(which(longestStretch == repeatElement))
-
-    return(nrRepeats)
 
 }
 
 
-computeNrRepeatsInSample <- function(fastaFile, repeatElements=c("1","2")){
+computeNrRepeatsInSample <- function(fastaFile, repeatElements=c("1","2"), sampleType="HTT"){
 
     require(seqinr)
 
@@ -621,7 +641,7 @@ computeNrRepeatsInSample <- function(fastaFile, repeatElements=c("1","2")){
     for(seqName in names(seqs)){
         seq <- seqs[seqName]
         for(repeatElement in repeatElements){
-            tmpRepeatNr <- computeNrRepeatsInSeq(seq, repeatElement)
+            tmpRepeatNr <- computeNrRepeatsInSeq(seq, repeatElement, sampleType=sampleType)
             repeatResults[[repeatElement]] <- c(repeatResults[[repeatElement]], tmpRepeatNr)
         }
 
@@ -637,42 +657,70 @@ computeNrRepeatsInSample <- function(fastaFile, repeatElements=c("1","2")){
 
 
 
-plotRepeatsInSample <- function(fastaFile, repeatElements=c("1","2"), sampleName=""){
+plotRepeatsInSample <- function(fastaFile, repeatElements=c("1","2"), sampleName="", sampleType="HTT"){
 
-    res <- computeNrRepeatsInSample(fastaFile, repeatElements)
+    sampleTypes <- c("HTT","FMR1","ALS","SCA10")
+    repeatNames <- c("CAG","CGG","GGGGCC","ATTCT")
+
+    names(repeatNames) <- sampleTypes
+
+    if(!sampleType %in% sampleTypes){
+        stop("Wrong sample type! Must be one of 'HTT', 'FMR1', 'ALS', 'SCA10'")
+    }
+
+    res <- computeNrRepeatsInSample(fastaFile, repeatElements, sampleType=sampleType)
 
     sequences <- res[[1]]
     seqNames <- names(sequences)
     repeatCounts <- res[[2]]
 
-    CAGrepeatCountVec <- repeatCounts[[1]]
-    idsCluster1 <- order(CAGrepeatCountVec)[1:floor(length(res[[1]])/2)]
-    idsCluster2 <- order(CAGrepeatCountVec)[ceiling(length(res[[1]])/2):length(CAGrepeatCountVec)]
-    CAGcounts1 <- repeatCounts[[1]][idsCluster1]
-    CAGcounts2 <- repeatCounts[[1]][idsCluster2]
-    CCGcounts1 <- repeatCounts[[2]][idsCluster1]
-    CCGcounts2 <- repeatCounts[[2]][idsCluster2]
+    Rep1repeatCountVec <- repeatCounts[[1]]
+    Rep1repeatCountVec <- Rep1repeatCountVec[Rep1repeatCountVec>0]
+    idsCluster1 <- order(Rep1repeatCountVec)[1:floor(length(res[[1]])/2)]
+    idsCluster2 <- order(Rep1repeatCountVec)[ceiling(length(res[[1]])/2):length(Rep1repeatCountVec)]
+    Rep1counts1 <- repeatCounts[[1]][idsCluster1]
+    Rep1counts2 <- repeatCounts[[1]][idsCluster2]
+    Rep2counts1 <- repeatCounts[[2]][idsCluster1]
+    Rep2counts2 <- repeatCounts[[2]][idsCluster2]
 
-    CAGcount1 <- names(which(table(CAGcounts1) == max(table(CAGcounts1))))
-    CAGcount2 <- names(which(table(CAGcounts2) == max(table(CAGcounts2))))
-    CCGcount1 <- names(which(table(CCGcounts1) == max(table(CCGcounts1))))
-    CCGcount2 <- names(which(table(CCGcounts2) == max(table(CCGcounts2))))
+    Rep1count1 <- names(which(table(Rep1counts1) == max(table(Rep1counts1))))[1]
+    Rep1count2 <- names(which(table(Rep1counts2) == max(table(Rep1counts2))))[1]
+    Rep2count1 <- names(which(table(Rep2counts1) == max(table(Rep2counts1))))[1]
+    Rep2count2 <- names(which(table(Rep2counts2) == max(table(Rep2counts2))))[1]
 
-    repeatString <- paste("Allele1: ",CAGcount1,"xCAG, ",CCGcount1,"xCCG; Allele2: ",CAGcount2,"xCAG, ",CCGcount2,"xCCG",sep="")
+    #print(Rep1count1)
+    #print(Rep1count2)
 
-    #if(CAGcount2 < CAGcount1){
-    #    repeatString <- paste("Allele1: ",CAGcount2,"xCAG, ",CCGcount2,"xCCG; Allele2: ",CAGcount1,"xCAG, ",CCGcount1,"xCCG",sep="")
-    #}
+    repeatSting <- NA
 
-    sequences <- sapply(names(sequences), function(x){gsub("1","345",sequences[[x]])})
-    sequences <- sapply(names(sequences), function(x){gsub("2","678",sequences[[x]])})
+    if(sampleType == "HTT"){
+        repeatString <- paste("Allele1: ",Rep1count1,"xCAG, ",Rep2count1,"xCCG; Allele2: ",Rep1count2,"xCAG, ",Rep2count2,"xCCG",sep="")
+        sequences <- sapply(names(sequences), function(x){gsub("1","134",sequences[[x]])})
+        sequences <- sapply(names(sequences), function(x){gsub("2","256",sequences[[x]])})
+    }
+    if(sampleType %in% c("ALS")){
+        repeatString <- paste("Allele1: ",Rep1count1,"x",repeatNames[sampleType],"; Allele2: ",Rep1count2,"x",repeatNames[sampleType],sep="")
+        sequences <- sapply(names(sequences), function(x){gsub("1","13478",sequences[[x]])})
+    }
+
+    if(sampleType %in% c("SCA10")){
+        repeatString <- paste("Allele1: ",Rep1count1,"x",repeatNames[sampleType],"; Allele2: ",Rep1count2,"x",repeatNames[sampleType],sep="")
+        sequences <- sapply(names(sequences), function(x){gsub("1","134789",sequences[[x]])})
+    }
+    if(sampleType %in% c("FMR1")){
+        repeatString <- paste("Allele1: ",Rep1count1,"xCGG, ",Rep2count1,"xAGG; Allele2: ",Rep1count2,"xCGG, ",Rep2count2,"xAGG",sep="")
+        sequences <- sapply(names(sequences), function(x){gsub("1","134",sequences[[x]])})
+        sequences <- sapply(names(sequences), function(x){gsub("2","256",sequences[[x]])})
+    }
+
+
 
     seqOrder <- order(sapply(sequences, nchar))
 
-    dataVec <- 1:10
-    names(dataVec) <- c("A","C","G","T","3","4","5","6","7","8")
+    dataVec <- 1:13
+    names(dataVec) <- c("A","C","G","T","1","2","3","4","5","6","7","8","9")
 
-    colVec <- c("white",grey(0.2),grey(0.4),grey(0.6),grey(0.8),"red1","red2","red3","blue1","blue2","blue3")
+    colVec <- c("white",grey(0.2),grey(0.4),grey(0.6),grey(0.8),"red1","blue1","red2","red3","blue2","blue3","brown","red4","black")
 
     maxLen <- max(sapply(sequences,nchar))
 
@@ -691,9 +739,9 @@ plotRepeatsInSample <- function(fastaFile, repeatElements=c("1","2"), sampleName
 
     par(mfrow=c(1,2))
 
-    plot(table(repeatCounts[[1]]), type="h", bty="n", main=paste("CAG repeat distribution, ",length(repeatCounts[[1]])," reads on target",sep=""), ylab="nr reads", xlab="repeat count", lwd=5, las=2)
+    plot(table(repeatCounts[[1]]), type="h", bty="n", main=paste(repeatNames[sampleType]," repeat distribution, ",length(repeatCounts[[1]])," reads on target",sep=""), ylab="nr reads", xlab="repeat count", lwd=5, las=2)
 
-    image(x=1:maxLen,y=1:length(seqNames),t(dataMatrix), col=colVec, breaks=c(0,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10), xlab="bases",ylab="reads", bty="n", axes=FALSE, main=repeatString)
+    image(x=1:maxLen,y=1:length(seqNames),t(dataMatrix), col=colVec, breaks=c(0,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5), xlab="bases",ylab="reads", bty="n", axes=FALSE, main=repeatString)
 
     axis(1, line=NA)
     axis(2, line=NA)
@@ -705,19 +753,33 @@ plotRepeatsInSample <- function(fastaFile, repeatElements=c("1","2"), sampleName
 
 ## #########################################################################################################
 ##
-##  Function: plotRepeatsInHTTsamples
+##  Function: plotRepeatResults
 ##
 ##  This function generates result summary plots for the HTT samples, both 'corrected' and 'uncorrected'
 ##
 ## #########################################################################################################
 
-plotRepeatsInHTTamples <- function(){
-    plotRepeatsInSample("analysis_results/genscript_rep1_ontarget_corrected_repeats.fasta")
-    plotRepeatsInSample("analysis_results/genscript_rep1_ontarget_uncorrected_repeats.fasta")
-    plotRepeatsInSample("analysis_results/genscript_rep2_ontarget_corrected_repeats.fasta")
-    plotRepeatsInSample("analysis_results/genscript_rep2_ontarget_uncorrected_repeats.fasta")
-    plotRepeatsInSample("analysis_results/genscript_rep3_ontarget_corrected_repeats.fasta")
-    plotRepeatsInSample("analysis_results/genscript_rep3_ontarget_uncorrected_repeats.fasta")
-    plotRepeatsInSample("analysis_results/genscript_rep4_ontarget_corrected_repeats.fasta")
-    plotRepeatsInSample("analysis_results/genscript_rep4_ontarget_uncorrected_repeats.fasta")
+
+plotRepeatResults <- function(sampleNames=c("genscript_rep1","genscript_rep2", "genscript_rep3", "genscript_rep4"), sampleTypes=c("ALS","FMR1","HTT","SCA10"), resultDirectory="analysis_results"){
+
+      for(sampleName in sampleNames){
+        for(sampleType in sampleTypes){
+            infileUncorrected <- paste(resultDirectory,"/",sampleName,"_",sampleType,"_ontarget_uncorrected_repeats.fasta",sep="")
+            infileCorrected <- paste(resultDirectory,"/",sampleName,"_",sampleType,"_ontarget_corrected_repeats.fasta",sep="")
+
+            if(!file.exists(infileUncorrected)){
+                stop("File missing: ",infileUncorrected,sep="")
+            }
+
+            plotRepeatsInSample(infileUncorrected, sampleType=sampleType)
+
+            if(!file.exists(infileCorrected)){
+                stop("File missing: ",infileCorrected,sep="")
+            }
+
+            plotRepeatsInSample(infileCorrected, sampleType=sampleType)
+
+        }
+    }
+
 }
